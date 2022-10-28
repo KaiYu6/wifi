@@ -1,4 +1,7 @@
 #include <atomic>      //原子类型数据，确保了在同一时刻只有唯一的线程对这个资源进行访问。
+#include <pthread.h>   //多线程
+#include <thread>      //线程
+#include <chrono>            //与时间有关
 
 #include "rc_indoor/udp_client.h"
 #include "rc_indoor/keyboard.h"
@@ -8,6 +11,7 @@ class RC
 public:
     float steer = 0;   //-1～1，float类型默认6位小数
     float throttle = 0;    //-1～1
+    int control_freq = 20;  //控制频率
     int key;    //键盘输入
     int flag = 1;   // 中断标志位
     UDP udp;

@@ -10,7 +10,7 @@
 #include <arpa/inet.h>      //网络操作
 
 #define DEST_PORT 8002                      //服务器端口
-#define DSET_IP_ADDRESS  "10.106.20.37"     //服务器IP
+#define DSET_IP_ADDRESS  "10.106.20.149"     //服务器IP
 
 class UDP
 {  

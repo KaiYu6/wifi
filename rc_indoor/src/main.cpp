@@ -6,6 +6,7 @@
 #include <ros/ros.h>   //ros
 #include <pthread.h>   //多线程
 #include <thread>      //线程
+#include <chrono>            //与时间有关
 
 #include "rc_indoor/indoor_rc.h"
 

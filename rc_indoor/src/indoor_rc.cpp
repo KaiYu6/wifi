@@ -7,6 +7,7 @@ RC::RC()
 {
     steer = 0;
     throttle = 0;
+    control_freq = 20;
     key = 0;
     flag = 1;
     control_run_flag_atomic_.store(true);
@@ -17,10 +18,21 @@ void RC::ControlLoopRun()
 {
     while (control_run_flag_atomic_.load())
     {
+        std::chrono::steady_clock::time_point t1 = std::chrono::steady_clock::now();
+
         // 此处添加控制算法，得到 steer 和 throttle
-        steer = 0.5;
-        throttle = 0.5;
-        udp.udp_client(steer, throttle, flag);
+        steer = 0.2;
+        throttle = 0.2;
+        control_freq = 20;
+        udp.udp_client(steer, throttle, flag);        
+        
+        std::chrono::steady_clock::time_point t2 = std::chrono::steady_clock::now();
+        auto duration = std::chrono::duration_cast< std::chrono::milliseconds>(t2-t1).count();
+        int delta_T = 1000/control_freq - (int)duration;
+
+        if(delta_T<=0) ;
+        else
+            std::this_thread::sleep_for(std::chrono::milliseconds(delta_T)); 
     }
 }
 void RC::MonitorLoopRun()
